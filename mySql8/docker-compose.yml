@@ -1,0 +1,27 @@
+version: '3'
+services:
+  db:
+    image: mysql:8
+    container_name: mysql
+    restart: always
+    environment:
+         MYSQL_ROOT_PASSWORD: root
+         MYSQL_DATABASE: orenodb
+         MYSQL_USER: mysql
+         MYSQL_PASSWORD: pasS97mySqlInves
+         TZ: 'Asia/Tokyo'
+    ports:
+        - "3307:3306"
+    command: mysqld --character-set-server=utf8mb4 --collation-server=utf8mb4_unicode_ci
+    volumes:
+        - ./db:/var/lib/mysql
+        - ./conf/my.cnf:/etc/mysql/conf.d/my.cnf
+        - ./initdb.d:/docker-entrypoint-initdb.d
+    networks:
+        default:
+          ipv4_address: 183.156.2.4
+networks:
+  default:
+    name: mynetwork
+    external: true
+  
